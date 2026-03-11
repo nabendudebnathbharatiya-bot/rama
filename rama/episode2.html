@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ইন্টারেক্টিভ স্টোরি ইঞ্জিন</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Custom Styles for Cinematic Effects and Dark Theme */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Hind Siliguri', sans-serif; /* A nice Bengali font */
+        }
+        
+        /* Custom animation for fade in and out */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+        
+        .animate-fade-in-out {
+            animation: fadeInOut 4s ease-in-out forwards;
+        }
+
+        /* Custom scrollbar for the text area */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(139, 92, 246, 0.6); /* purple-500 */
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(124, 58, 237, 0.8); /* purple-600 */
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen">
+
+    <!-- 1. Global Intro Screen -->
+    <div id="intro-screen" class="absolute inset-0 flex flex-col items-center justify-center z-20 bg-black text-center p-4">
+        <div id="intro-text-container" class="hidden">
+            <h1 id="intro-story-name" class="text-4xl lg:text-6xl font-serif mb-4" style="opacity: 0;"></h1>
+            <p id="intro-writer" class="text-xl lg:text-3xl font-light" style="opacity: 0;"></p>
+        </div>
+        <button id="start-button" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg text-xl transition-all duration-300 shadow-lg shadow-purple-500/50">
+            শুরু করুন
+        </button>
+    </div>
+
+    <!-- Main Story Container -->
+    <div id="story-container" class="hidden w-full h-full lg:max-w-4xl lg:h-auto lg:my-8 flex flex-col bg-gray-900/70 backdrop-blur-sm border border-gray-700 lg:rounded-xl shadow-2xl shadow-purple-500/20 overflow-hidden">
+        
+        <!-- Media Area -->
+        <div id="media-container" class="w-full lg:aspect-video bg-black flex items-center justify-center text-gray-400">
+            <!-- Dynamic content will be injected here -->
+        </div>
+
+        <!-- Audio Player -->
+        <audio id="audio-player" class="hidden"></audio>
+        <audio id="theme-audio-player" class="hidden" loop></audio>
+
+        <!-- Content Area -->
+        <div class="flex-grow flex flex-col p-4 sm:p-6 custom-scrollbar" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+            <div id="text-container" class="flex-grow mb-4">
+                <p id="story-text" class="text-lg md:text-xl text-gray-200 leading-relaxed whitespace-pre-wrap"></p>
+                <p id="story-subtext" class="text-sm text-gray-400 mt-2 italic"></p>
+            </div>
+            
+            <!-- Interaction Area -->
+            <div id="interaction-container" class="mt-auto flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
+                <!-- Buttons will be injected here -->
+            </div>
+
+            <!-- Feedback Box -->
+            <div id="feedback-box" class="hidden p-4 rounded-lg mt-4 text-center text-white">
+                <p id="feedback-text" class="font-semibold"></p>
+                <!-- "Next" button will be appended here after feedback -->
+            </div>
+        </div>
+    </div>
+
+<script>
+// --- CORE LOGIC & FEATURES ---
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. GLOBAL INTRO SEQUENCE CONFIG
+    const INTRO_CONFIG = {
+        storyName: "রামায়ণ: সীতার বনবাস",
+        writer: "মহর্ষি বাল্মীকি",
+        themeAudio: "" // Add your theme audio link here e.g., "path/to/theme.mp3"
+    };
+
+    // DOM Elements
+    const introScreen = document.getElementById('intro-screen');
+    const introTextContainer = document.getElementById('intro-text-container');
+    const introStoryName = document.getElementById('intro-story-name');
+    const introWriter = document.getElementById('intro-writer');
+    const startButton = document.getElementById('start-button');
+    const storyContainer = document.getElementById('story-container');
+    const mediaContainer = document.getElementById('media-container');
+    const audioPlayer = document.getElementById('audio-player');
+    const themeAudioPlayer = document.getElementById('theme-audio-player');
+    const textContainer = document.getElementById('text-container');
+    const storyText = document.getElementById('story-text');
+    const storySubtext = document.getElementById('story-subtext');
+    const interactionContainer = document.getElementById('interaction-container');
+    const feedbackBox = document.getElementById('feedback-box');
+    const feedbackText = document.getElementById('feedback-text');
+
+    // State
+    let storyData = [];
+    let currentSlideIndex = 0;
+
+    // --- INITIALIZATION ---
+    
+    startButton.addEventListener('click', startIntroSequence);
+
+    function startIntroSequence() {
+        // Bypass browser audio autoplay policy
+        if (INTRO_CONFIG.themeAudio) {
+            themeAudioPlayer.src = INTRO_CONFIG.themeAudio;
+            themeAudioPlayer.play().catch(e => console.error("Theme audio playback failed:", e));
+        }
+        
+        startButton.style.display = 'none';
+        introTextContainer.style.display = 'block';
+
+        // Cinematic Text Sequence
+        introStoryName.textContent = INTRO_CONFIG.storyName;
+        introWriter.textContent = `লিখেছেন: ${INTRO_CONFIG.writer}`;
+        
+        setTimeout(() => {
+            introStoryName.classList.add('animate-fade-in-out');
+        }, 500);
+        
+        setTimeout(() => {
+            introWriter.classList.add('animate-fade-in-out');
+        }, 4500);
+
+        // Transition to story
+        setTimeout(() => {
+            introScreen.style.transition = 'opacity 1s ease-out';
+            introScreen.style.opacity = '0';
+            setTimeout(() => {
+                introScreen.classList.add('hidden');
+                storyContainer.classList.remove('hidden');
+                storyContainer.style.transition = 'opacity 1s ease-in';
+                storyContainer.style.opacity = '1';
+                loadStoryData();
+            }, 1000);
+        }, 8500);
+    }
+    
+    async function loadStoryData() {
+        try {
+            const response = await fetch('data.txt');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}. 'data.txt' ফাইলটি খুঁজে পাওয়া যায়নি।`);
+            }
+            const rawData = await response.text();
+            storyData = parseData(rawData);
+            if (storyData.length > 0) {
+                renderSlide(currentSlideIndex);
+            } else {
+                showError("'data.txt' ফাইলে কোনো স্লাইড পাওয়া যায়নি বা ফরম্যাট সঠিক নয়।");
+            }
+        } catch (error) {
+            console.error('Error loading story data:', error);
+            showError(error.message);
+        }
+    }
+
+    function parseData(text) {
+        const slides = [];
+        // Split by "স্লাইড:" but keep the delimiter for easier processing. Using lookahead.
+        const slideChunks = text.split(/(?=^স্লাইড:)/m).filter(s => s.trim() !== '');
+
+        for (const chunk of slideChunks) {
+            const lines = chunk.trim().split('\n');
+            const slideObj = {};
+            for (const line of lines) {
+                const parts = line.split(/:(.*)/s); // Split only on the first colon
+                if (parts.length === 2) {
+                    const key = parts[0].trim();
+                    const value = parts[1].trim();
+                    slideObj[key] = value;
+                }
+            }
+            slides.push(slideObj);
+        }
+        return slides;
+    }
+
+    function showError(message) {
+        storyContainer.classList.remove('hidden');
+        mediaContainer.innerHTML = '';
+        interactionContainer.innerHTML = '';
+        storyText.textContent = `ত্রুটি: ${message}`;
+        storySubtext.textContent = "অনুগ্রহ করে কনসোল চেক করুন এবং ফাইলটি সঠিক জায়গায় আছে কিনা নিশ্চিত করুন।";
+    }
+
+
+    // --- RENDERING LOGIC ---
+
+    function renderSlide(index) {
+        if (index >= storyData.length) {
+            console.warn("End of story.");
+            storyText.textContent = "গল্পটি শেষ হয়েছে।";
+            interactionContainer.innerHTML = '';
+            mediaContainer.innerHTML = '<div class="text-2xl">সমাপ্ত</div>';
+            return;
+        }
+
+        const slide = storyData[index];
+
+        // 2. MEDIA HANDLING
+        mediaContainer.innerHTML = ''; // Clear previous media
+        const mediaType = slide['মিডিয়া টাইপ'] ? slide['মিডিয়া টাইপ'].trim() : 'খালি';
+        const mediaLink = slide['মিডিয়া লিংক'] ? slide['মিডিয়া লিংক'].trim() : '';
+        const mediaDesc = slide['মিডিয়া বর্ণনা'] ? slide['মিডিয়া বর্ণনা'].trim() : 'মিডিয়া লোড হচ্ছে...';
+
+        switch (mediaType) {
+            case 'ছবি':
+                if (mediaLink) {
+                    const img = document.createElement('img');
+                    img.src = mediaLink;
+                    img.alt = mediaDesc;
+                    img.className = 'w-full h-full object-cover';
+                    mediaContainer.appendChild(img);
+                } else {
+                    mediaContainer.innerHTML = `<div class="p-4 text-center">${mediaDesc}</div>`;
+                }
+                break;
+            case 'ভিডিও':
+                if (mediaLink) {
+                    const video = document.createElement('video');
+                    video.src = mediaLink;
+                    video.className = 'w-full h-full object-cover';
+                    video.autoplay = true;
+                    video.loop = true;
+                    video.muted = true; // Required for autoplay in most browsers
+                    video.playsInline = true;
+                    mediaContainer.appendChild(video);
+                } else {
+                     mediaContainer.innerHTML = `<div class="p-4 text-center">${mediaDesc}</div>`;
+                }
+                break;
+            case 'আইকন':
+                 if (mediaLink) { // Using media link for icon classes e.g., "fas fa-tree"
+                    const icon = document.createElement('i');
+                    icon.className = `${mediaLink} text-8xl lg:text-9xl text-purple-300`;
+                    mediaContainer.appendChild(icon);
+                } else {
+                    mediaContainer.innerHTML = `<div class="p-4 text-center">${mediaDesc}</div>`;
+                }
+                break;
+            case 'খালি':
+            default:
+                mediaContainer.innerHTML = `<div class="p-4 text-center">${mediaDesc || 'কোনো ভিজ্যুয়াল নেই'}</div>`;
+                break;
+        }
+
+        // Handle Audio
+        const audioLink = slide['অডিও লিংক'] ? slide['অডিও লিংক'].trim() : '';
+        if (audioLink) {
+            audioPlayer.src = audioLink;
+            audioPlayer.play().catch(e => console.warn("Slide audio playback failed:", e));
+        } else {
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0;
+        }
+
+        // Render Text
+        storyText.textContent = slide['টেক্সট'] || '';
+        storySubtext.textContent = slide['সাবটেক্সট'] || '';
+
+        // Clear previous interactions and feedback
+        interactionContainer.innerHTML = '';
+        feedbackBox.classList.add('hidden');
+
+        // Render Interactions
+        const interaction = slide['ইন্টারঅ্যাকশন'] || '';
+
+        // 3. SMART PUZZLE LOGIC
+        if (interaction.includes("নাকি")) {
+            const options = interaction.replace("নির্বাচন করুন", "").split("নাকি").map(opt => opt.trim());
+            options.forEach(optionText => {
+                const button = createButton(optionText, 'puzzle-option');
+                interactionContainer.appendChild(button);
+            });
+        } 
+        // 4. AD BRIDGE & NEXT EPISODE ROUTING
+        else if (interaction.includes("নেক্সট এপিসোড") || interaction.includes("পরবর্তী পর্ব")) {
+            const button = createButton(interaction, 'next-episode');
+            button.dataset.target = slide['টার্গেট'] || '';
+            interactionContainer.appendChild(button);
+        }
+        // Default "Next" button
+        else {
+            const button = createButton(interaction || "পরবর্তী ➔", 'next-slide');
+            interactionContainer.appendChild(button);
+        }
+    }
+
+    function createButton(text, type) {
+        const button = document.createElement('button');
+        button.textContent = text;
+        button.dataset.type = type;
+        button.className = "bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-5 rounded-lg transition-all duration-300 disabled:opacity-50 disabled:bg-gray-500 disabled:cursor-not-allowed shadow-md focus:outline-none focus:ring-2 focus:ring-purple-400";
+        return button;
+    }
+
+    // --- INTERACTION HANDLING ---
+
+    interactionContainer.addEventListener('click', handleInteraction);
+
+    function handleInteraction(e) {
+        if (e.target.tagName !== 'BUTTON') return;
+
+        const button = e.target;
+        const type = button.dataset.type;
+        
+        switch (type) {
+            case 'next-slide':
+                currentSlideIndex++;
+                renderSlide(currentSlideIndex);
+                break;
+            
+            case 'puzzle-option':
+                handlePuzzle(button);
+                break;
+
+            case 'next-episode':
+                const targetUrl = button.dataset.target;
+                if (targetUrl) {
+                    window.location.href = `ad_bridge.html?next=${encodeURIComponent(targetUrl)}`;
+                } else {
+                    console.error("No target URL found for next episode.");
+                }
+                break;
+        }
+    }
+
+    function handlePuzzle(selectedButton) {
+        const slide = storyData[currentSlideIndex];
+        const correctAnswer = slide['সঠিক উত্তর'] ? slide['সঠিক উত্তর'].trim() : '';
+        const feedbackMessage = slide['ফিডব্যাক'] || 'ফলাফল...';
+        const isCorrect = selectedButton.textContent.trim() === correctAnswer;
+
+        // Disable all option buttons
+        interactionContainer.querySelectorAll('button').forEach(btn => {
+            btn.disabled = true;
+        });
+
+        // Show styled feedback box
+        feedbackText.textContent = feedbackMessage;
+        feedbackBox.classList.remove('hidden');
+        
+        if (isCorrect) {
+            feedbackBox.className = 'p-4 rounded-lg mt-4 text-center text-white bg-green-800/80 border border-green-500';
+            selectedButton.classList.replace('bg-purple-600', 'bg-green-600');
+        } else {
+            feedbackBox.className = 'p-4 rounded-lg mt-4 text-center text-white bg-red-800/80 border border-red-500';
+            selectedButton.classList.replace('bg-purple-600', 'bg-red-600');
+        }
+
+        // Append "Next Slide" button to feedback box
+        const nextButton = createButton("পরবর্তী স্লাইড ➔", 'next-slide-from-feedback');
+        nextButton.addEventListener('click', () => {
+            currentSlideIndex++;
+            renderSlide(currentSlideIndex);
+        }, { once: true }); // Make sure it only fires once
+        
+        // Check if a next button already exists to prevent duplicates
+        if (!feedbackBox.querySelector('button')) {
+            feedbackBox.appendChild(nextButton);
+        }
+    }
+});
+</script>
+
+</body>
+</html>
