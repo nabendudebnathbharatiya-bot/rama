@@ -57,7 +57,7 @@ Element: text
 Text: <h2 class="text-3xl font-bold text-white mb-6 text-center">তিনি হলেন ইক্ষ্বাকু বংশজাত শ্রীরামচন্দ্র</h2>
 Animation: anim-zoom
 Element: text
-Text: <ul class="text-xl text-blue-200 space-y-4"><li>✅ জিতেন্দ্রিয় ও বুদ্ধিমান</li><li>✅ সত্যবাদী ও ধৈর্যশীল</li><li>✅ প্রজাবৎসল ও রক্ষাকর্তা</li></ul>
+Text: <ul class="text-lg text-blue-200 space-y-4"><li>✅ জিতেন্দ্রিয় ও বুদ্ধিমান</li><li>✅ সত্যবাদী ও ধৈর্যশীল</li><li>✅ প্রজাবৎসল ও রক্ষাকর্তা</li></ul>
 Animation: anim-slide-up
 Start: 3
 Element: image
