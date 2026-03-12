@@ -1,74 +1,80 @@
-স্লাইড: ১
-টাইপ: ডায়ালগ
-ভিজ্যুয়াল: অযোধ্যার রাজসভার একটি চিত্র।
-মিডিয়া টাইপ: আইকন
-মিডিয়া বর্ণনা: রাজসভার প্রতীক।
-মিডিয়া লিংক: fas fa-crown
-অডিও বর্ণনা: রাজসভার গুঞ্জন এবং চাপা উত্তেজনা।
-অডিও লিংক: 
-টেক্সট: লঙ্কা থেকে উদ্ধারের পর সীতাকে নিয়ে অযোধ্যায় কানাঘুষা শুরু হয়। একজন সাধারণ ধোপা সীতার পবিত্রতা নিয়ে প্রশ্ন তুললে, সেই খবর গুপ্তচরের মাধ্যমে রাজা রামের কানে পৌঁছায়।
-সাবটেক্সট: রাজা হিসেবে রামের জন্য এটি ছিল এক কঠিন মুহূর্ত।
-ইন্টারঅ্যাকশন: পরবর্তী ➔
-সঠিক উত্তর: 
-ফিডব্যাক: 
-টার্গেট: 
+PlayerMode: auto
+LikeMessage: নারদ-বাল্মীকি সংবাদ আপনার ভালো লেগেছে!
+ShareText: মহর্ষি বাল্মীকি ও দেবর্ষি নারদের সেই অমর কথোপকথন দেখুন।
+HomeLink: index.html
 
-স্লাইড: ২
-টাইপ: পাজল
-ভিজ্যুয়াল: দ্বিধাবিভক্ত রামের মুখ।
-মিডিয়া টাইপ: আইকন
-মিডিয়া বর্ণনা: ভাঙা হৃদয়ের প্রতীক।
-মিডিয়া লিংক: fas fa-heart-crack
-অডিও বর্ণনা: বিষণ্ণ আবহ সংগীত।
-অডিও লিংক: 
-টেক্সট: একদিকে রাজধর্ম ও প্রজাদের সন্তুষ্টি, অন্যদিকে প্রিয়তমা স্ত্রীর প্রতি ভালোবাসা। রাম এক চরম সংকটের সম্মুখীন হলেন। তাঁর কী করা উচিত?
-সাবটেক্সট: আপনার মতে, রাম কোন পথটি বেছে নেবেন?
-ইন্টারঅ্যাকশন: রাজধর্ম নাকি পত্নীপ্রেম নির্বাচন করুন
-সঠিক উত্তর: রাজধর্ম
-ফিডব্যাক: রাজা হিসেবে রাম তাঁর কর্তব্যকে সবার উপরে স্থান দিলেন, যদিও তাঁর হৃদয় ভেঙে যাচ্ছিল।
-টার্গেট: 
+[Slide]
+Duration: 10
+Audio: ramayan.mp3
+Layout: flex flex-col items-center justify-center w-full h-full p-6 bg-gradient-to-b from-orange-900 to-black
+Element: text
+Text: <h1 class="text-4xl font-bold text-orange-400 text-center">নারদ ও বাল্মীকি সংবাদ</h1>
+Animation: anim-slide-down
+Element: text
+Text: <p class="text-xl text-white mt-4 italic">রামায়ণের অমর সূচনালগ্ন</p>
+Animation: anim-fade
+Start: 2
+Element: image
+Src: ramaq.png
+Class: w-64 h-80 object-cover rounded-2xl shadow-2xl border-2 border-orange-500 mt-6
+Animation: anim-zoom
+Start: 3
 
-স্লাইড: ৩
-টাইপ: ডায়ালগ
-ভিজ্যুয়াল: বনভূমির দিকে এগিয়ে চলা একটি রথ।
-মিডিয়া টাইপ: ছবি
-মিডিয়া বর্ণনা: একটি রথ বনের দিকে যাচ্ছে।
-মিডিয়া লিংক: https://img.freepik.com/premium-photo/ancient-indian-chariot-moving-through-dense-forest-epic-illustration_950002-10654.jpg
-অডিও বর্ণনা: রথের চাকার শব্দ এবং ঘোড়ার ডাক।
-অডিও লিংক: 
-টেক্সট: রাম অশ্রুসিক্ত চোখে ছোট ভাই লক্ষণকে আদেশ দিলেন, "সীতাকে কাল সকালে বন পরিদর্শনের কথা বলে ঋষিদের আশ্রমের কাছে নির্জন বনে রেখে এসো।" সীতা এই আদেশের পেছনের নির্মম সত্যটি জানতেন না।
-সাবটেক্সট: লক্ষণের হৃদয় দুঃখে ভারাক্রান্ত হয়ে উঠল।
-ইন্টারঅ্যাকশন: পরবর্তী ➔
-সঠিক উত্তর: 
-ফিডব্যাক: 
-টার্গেট: 
+[Slide]
+Duration: 10
+Layout: flex flex-col items-center justify-start w-full h-full p-8 bg-gray-900
+Element: text
+Text: <div class="bg-orange-600/20 p-4 rounded-lg border-l-4 border-orange-500"><p class="text-2xl text-orange-300 leading-relaxed font-serif">"হে দেবর্ষি, এই মর্ত্যে বর্তমানে সর্বগুণসম্পন্ন, বীর্যবান এবং ধর্মজ্ঞ আদর্শ পুরুষ কে আছেন?"</p></div>
+Animation: anim-slide-left
+Element: text
+Text: <p class="text-right w-full text-gray-400 mt-2">— মহর্ষি বাল্মীকির জিজ্ঞাসা</p>
+Animation: anim-fade
+Start: 4
+Element: image
+Src: top.jpeg
+Class: w-full h-1/2 object-contain mt-6 rounded-lg
+Animation: anim-fade
+Start: 2
 
-স্লাইড: ৪
-টাইপ: ডায়ালগ
-ভিজ্যুয়াল: বনের মধ্যে একা ও বিষণ্ণ সীতা।
-মিডিয়া টাইপ: আইকন
-মিডিয়া বর্ণনা: বনের মধ্যে একজন একাকী নারী।
-মিডিয়া লিংক: fas fa-person-praying
-অডিও বর্ণনা: বনের নিস্তব্ধতা এবং কান্নার শব্দ।
-অডিও লিংক: 
-টেক্সট: গঙ্গার তীরে पोहोचানোর পর লক্ষণ কান্নায় ভেঙে পড়েন এবং রামের আদেশের কথা সীতাকে জানান। এই কথা শুনে সীতা বজ্রাহতের মতো মাটিতে লুটিয়ে পড়েন। তাঁকে অসহায় অবস্থায় রেখে ভারাক্রান্ত হৃদয়ে লক্ষণ অযোধ্যায় ফিরে আসেন।
-সাবটেক্সট: সীতার পৃথিবী যেন এক মুহূর্তে আঁধারে ঢেকে গেল।
-ইন্টারঅ্যাকশন: পরবর্তী ➔
-সঠিক উত্তর: 
-ফিডব্যাক: 
-টার্গেট: 
+[Slide]
+Duration: 68
+Layout: flex flex-col items-center justify-center w-full h-full p-6 bg-black
+Element: video
+Src: rama.mp4
+Class: w-full aspect-[9/16] rounded-xl border border-teal-500
+PlayDuration: 68
+Element: text
+Text: <div class="absolute top-10 bg-black/60 p-3 rounded-full border border-teal-400"><p class="text-teal-400 font-bold">দেবর্ষি নারদের উত্তর...</p></div>
+Animation: anim-slide-down
+Start: 1
 
-স্লাইড: ৫
-টাইপ: ডায়ালগ
-ভিজ্যুয়াল: মহর্ষি বাল্মীকির আশ্রম।
-মিডিয়া টাইপ: আইকন
-মিডিয়া বর্ণনা: একটি শান্ত আশ্রমের প্রতীক।
-মিডিয়া লিংক: fas fa-place-of-worship
-অডিও বর্ণনা: শান্ত ও পবিত্র মন্ত্রের ধ্বনি।
-অডিও লিংক: 
-টেক্সট: বনের মধ্যে মাতৃহারা হরিণশাবকের মতো ক্রন্দনরত সীতাকে দেখতে পান মহর্ষি বাল্মীকি। তিনি দিব্যदृষ্টির মাধ্যমে সবকিছু জানতে পারেন এবং সীতাকে কন্যার স্নেহে তাঁর আশ্রমে আশ্রয় দেন। এখানেই সীতার জীবনের এক নতুন অধ্যায় শুরু হয়।
-সাবটেক্সট: বাল্মীকির আশ্রয়ে সীতা তাঁর দুই পুত্র, লব ও কুশকে জন্ম দেন।
-ইন্টারঅ্যাকশন: পরবর্তী পর্ব
-সঠিক উত্তর: 
-ফিডব্যাক: 
-টার্গেট: rama/episode2.html
+[Slide]
+Duration: 10
+Layout: flex flex-col items-center justify-center w-full h-full p-8 bg-gradient-to-t from-blue-900 to-black
+Element: text
+Text: <h2 class="text-3xl font-bold text-white mb-6 text-center">তিনি হলেন ইক্ষ্বাকু বংশজাত শ্রীরামচন্দ্র</h2>
+Animation: anim-zoom
+Element: text
+Text: <ul class="text-xl text-blue-200 space-y-4"><li>✅ জিতেন্দ্রিয় ও বুদ্ধিমান</li><li>✅ সত্যবাদী ও ধৈর্যশীল</li><li>✅ প্রজাবৎসল ও রক্ষাকর্তা</li></ul>
+Animation: anim-slide-up
+Start: 3
+Element: image
+Src: top.jpeg
+Class: absolute bottom-10 w-40 opacity-50
+Animation: anim-fade
+Start: 5
+
+[Slide]
+Duration: 8
+Layout: flex flex-col items-center justify-center w-full h-full p-6 bg-orange-950
+Element: text
+Text: <h2 class="text-4xl font-bold text-orange-500 mb-4 text-center">রামায়ণের জন্ম</h2>
+Animation: anim-zoom
+Element: text
+Text: <p class="text-center text-orange-200 text-lg">নারদের মুখে শ্রীরামের গুণগান শুনেই বাল্মীকি অনুপ্রাণিত হলেন মহাকাব্য রচনায়।</p>
+Animation: anim-fade
+Start: 2
+Element: text
+Text: <div class="mt-8 animate-bounce"><svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.993 7.993 0 0110 4a7.993 7.993 0 011 0.804V15a1 1 0 01-1.447.894l-4-2A1 1 0 014 13V6a1 1 0 01.553-.894l4-2z"></path></svg></div>
+Animation: anim-fade
+Start: 4
