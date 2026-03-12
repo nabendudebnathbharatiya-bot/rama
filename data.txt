@@ -32,7 +32,7 @@ Text: <p class="text-right w-full text-gray-400 mt-2">— মহর্ষি ব
 Animation: anim-fade
 Start: 4
 Element: image
-Src: top.jpg
+Src: top.jpeg
 Class: w-full h-1/2 object-contain mt-6 rounded-lg
 Animation: anim-fade
 Start: 2
