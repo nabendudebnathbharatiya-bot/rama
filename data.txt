@@ -60,11 +60,6 @@ Element: text
 Text: <ul class="text-lg text-blue-200 space-y-4"><li>✅ জিতেন্দ্রিয় ও বুদ্ধিমান</li><li>✅ সত্যবাদী ও ধৈর্যশীল</li><li>✅ প্রজাবৎসল ও রক্ষাকর্তা</li></ul>
 Animation: anim-slide-up
 Start: 3
-Element: image
-Src: top.jpeg
-Class: absolute bottom-10 w-40 opacity-50
-Animation: anim-fade
-Start: 5
 
 [Slide]
 Duration: 8
@@ -79,4 +74,9 @@ Start: 2
 Element: text
 Text: <div class="mt-8 animate-bounce"><svg class="w-12 h-12 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9 4.804A7.993 7.993 0 0110 4a7.993 7.993 0 011 0.804V15a1 1 0 01-1.447.894l-4-2A1 1 0 014 13V6a1 1 0 01.553-.894l4-2z"></path></svg></div>
 Animation: anim-fade
-Start: 4
+Start: 2
+Element: image
+Src: top.jpeg
+Class: absolute bottom-10 w-40 opacity-50
+Animation: anim-fade
+Start: 5
