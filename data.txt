@@ -15,7 +15,7 @@ Text: <p class="text-xl text-white mt-4 italic">রামায়ণের অম�
 Animation: anim-fade
 Start: 2
 Element: image
-Src: ramaq.jpg
+Src: ramq.jpg
 Class: w-64 h-80 object-cover rounded-2xl shadow-2xl border-2 border-orange-500 mt-6
 Animation: anim-zoom
 Start: 3
