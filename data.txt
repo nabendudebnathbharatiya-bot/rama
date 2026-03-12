@@ -15,7 +15,7 @@ Text: <p class="text-xl text-white mt-4 italic">রামায়ণের অম�
 Animation: anim-fade
 Start: 2
 Element: image
-Src: ramaq.png
+Src: ramaq.jpg
 Class: w-64 h-80 object-cover rounded-2xl shadow-2xl border-2 border-orange-500 mt-6
 Animation: anim-zoom
 Start: 3
@@ -24,6 +24,7 @@ Start: 3
 Duration: 10
 Layout: flex flex-col items-center justify-start w-full h-full p-8 bg-gray-900
 Element: text
+Audio: rama.mp3
 Text: <div class="bg-orange-600/20 p-4 rounded-lg border-l-4 border-orange-500"><p class="text-2xl text-orange-300 leading-relaxed font-serif">"হে দেবর্ষি, এই মর্ত্যে বর্তমানে সর্বগুণসম্পন্ন, বীর্যবান এবং ধর্মজ্ঞ আদর্শ পুরুষ কে আছেন?"</p></div>
 Animation: anim-slide-left
 Element: text
@@ -31,7 +32,7 @@ Text: <p class="text-right w-full text-gray-400 mt-2">— মহর্ষি ব
 Animation: anim-fade
 Start: 4
 Element: image
-Src: top.jpeg
+Src: top.jpg
 Class: w-full h-1/2 object-contain mt-6 rounded-lg
 Animation: anim-fade
 Start: 2
@@ -50,6 +51,7 @@ Start: 1
 
 [Slide]
 Duration: 10
+Audio: ramayan.mp3
 Layout: flex flex-col items-center justify-center w-full h-full p-8 bg-gradient-to-t from-blue-900 to-black
 Element: text
 Text: <h2 class="text-3xl font-bold text-white mb-6 text-center">তিনি হলেন ইক্ষ্বাকু বংশজাত শ্রীরামচন্দ্র</h2>
